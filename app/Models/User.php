@@ -6,7 +6,6 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar
 {
-    use HasFactory, Notifiable, HasUuids;
+    use HasFactory, Notifiable;
 
     private ?string $avatar_url = null;
 
@@ -25,7 +24,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'gender',
         'password',
@@ -64,11 +64,22 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         ];
     }
 
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, (array)$this->roles());
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
-        $this->role == 'admin';
+        if ($panel->id === 'admin') {
+            return $this->hasRole('admin');
+        }
 
-        return true;
+        if ($panel->id === 'front') {
+            return $this->hasRole('jogger');
+        }
+
+        return false;
     }
 
     public function getFilamentAvatarUrl(): ?string
