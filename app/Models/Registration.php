@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Registration extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['trail_id'];
+    protected $fillable = [
+        'trail_id',
+        'user_id',
+        'registration_date',
+        'price',
+    ];
 
     public function trail(): BelongsTo
     {
@@ -26,12 +30,6 @@ class Registration extends Model
 
     public function joggers(): BelongsToMany
     {
-       return $this->belongsToMany(Jogger::class);
+        return $this->belongsToMany(Jogger::class)->withTimestamps();
     }
-
-  /*  public function registrationJoggers(): BelongsToMany
-    {
-        return $this->belongsToMany(RegistrationJogger::class);
-    }*/
-
 }

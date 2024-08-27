@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use Symfony\Component\Uid\Uuid;
 
 return new class extends Migration {
     /**
@@ -14,12 +15,14 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('last_name')->default('Last');
+            $table->string('first_name')->default('First');
             $table->string('email')->unique();
             $table->string('gender')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->uuid('uuid')->default(\Symfony\Component\Uid\Uuid::v7());
+            $table->uuid()->default(Uuid::v7());
             $table->json('roles')->default('{}');
-            $table->string('password')->default(Hash::make('homer'));
+            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

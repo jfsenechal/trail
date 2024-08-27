@@ -12,11 +12,6 @@ use Illuminate\Support\Str;
 
 class Register extends BaseRegister
 {
-    public function beforeRegister()
-    {
-        //   $this->data['password'] = Hash::make('xxx');
-    }
-
     public function form(Form $form): Form
     {
         return $form
