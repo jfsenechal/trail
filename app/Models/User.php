@@ -28,7 +28,6 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         'last_name',
         'email',
         'gender',
-        'password',
     ];
 
     /**
@@ -67,16 +66,20 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
 
     public function hasRole(string $role): bool
     {
-        return in_array($role, (array)$this->roles());
+        dump($this->roles);
+
+        return in_array($role, $this->roles);
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($panel->id === 'admin') {
+        if ($panel->getId() === 'admin') {
             return $this->hasRole('admin');
         }
 
-        if ($panel->id === 'front') {
+        if ($panel->getId() === 'front') {
+            dd($this->hasRole('admin'));
+
             return $this->hasRole('jogger');
         }
 
