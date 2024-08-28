@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\FrontPanel\Resources\JoggerResource\Widgets\RegistratioinOverview;
+use App\Filament\FrontPanel\Resources\RunnerResource\Widgets\RegistratioinOverview;
 use App\Filament\Pages\Auth\EditProfile;
 use App\Filament\Pages\Auth\Register;
 use App\Models\Role;

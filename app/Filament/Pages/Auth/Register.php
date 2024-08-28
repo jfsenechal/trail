@@ -37,7 +37,7 @@ class Register extends BaseRegister
     protected function mutateFormDataBeforeRegister(array $data): array
     {
         $data['password'] = Hash::make(Str::password(length: 16));
-        $data['roles'] = json_encode([Role::ROLE_JOGGER]);
+        $data['roles'] = json_encode([Role::ROLE_RUNNER]);
         $data['name'] = $data['first_name'];
 
         return $data;

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Jogger;
+use App\Models\Runner;
 use App\Models\Registration;
 use App\Models\Trail;
 use App\Models\User;
@@ -22,12 +22,12 @@ return new class extends Migration {
             $table->unsignedInteger('price')->nullable();
             $table->timestamps();
         });
-        Schema::create('jogger_registration', function (Blueprint $table) {
+        Schema::create('registration_runner', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Registration::class)->constrained('registrations')->cascadeOnDelete();
-            $table->foreignIdFor(Jogger::class)->constrained('joggers')->cascadeOnDelete();
+            $table->foreignIdFor(Runner::class)->constrained('runners')->cascadeOnDelete();
             $table->timestamps();
-            $table->unique(['registration_id', 'jogger_id']);
+            $table->unique(['registration_id', 'runner_id']);
         });
     }
 
@@ -37,6 +37,6 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('registrations');
-        Schema::dropIfExists('jogger_registration');
+        Schema::dropIfExists('registration_runner');
     }
 };

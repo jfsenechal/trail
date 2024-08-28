@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Jogger;
+use App\Models\Runner;
 use App\Models\Registration;
 
 class RegistrationFactory
@@ -10,15 +10,12 @@ class RegistrationFactory
     public function test(): void
     {
         $registration = Registration::factory()->create();
-        $jogger = Jogger::factory()->create();
+        $runner = Runner::factory()->create();
 
-        //$registration->jogger()->associate($jogger);
-        // Create relation between Driver and Car.
-        //  use the sync() function to prevent duplicated relations.
-        $registration->joggers()->sync([$jogger->id]);
+        $registration->runners()->sync([$runner->id]);
 
         //
-        $jogger->registations()->sync([
+        $runner->registations()->sync([
             $registration->id,
         ]);
     }

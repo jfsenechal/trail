@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\AdminPanel\Resources\RegistrationResource\Widgets\LatestJoggers;
+use App\Filament\AdminPanel\Resources\RegistrationResource\Widgets\LatestRunners;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -44,7 +44,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/AdminPanel/Widgets'), for: 'App\\Filament\\AdminPanel\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                LatestJoggers::class,
+                LatestRunners::class,
             ])
             ->middleware([
                 EncryptCookies::class,

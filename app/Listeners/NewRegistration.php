@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Mail\RegistrationCompleted;
-use App\Models\Jogger;
+use App\Models\Runner;
 use App\Models\Registration;
 use App\Models\Trail;
 use App\Models\User;
@@ -43,10 +43,10 @@ class NewRegistration
         } else {
             $registration = $registrations->first();
         }
-        $jogger = Jogger::create(
+        $runner = Runner::create(
             ['first_name' => $user->first_name, 'last_name' => $user->last_name, 'email' => $user->email],
         );
-        $registration->joggers()->attach($jogger);
+        $registration->runners()->attach($runner);
 
         Mail::to($user->email)->send(new RegistrationCompleted($user, $token));
     }

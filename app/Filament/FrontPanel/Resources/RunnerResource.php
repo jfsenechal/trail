@@ -2,11 +2,11 @@
 
 namespace App\Filament\FrontPanel\Resources;
 
-use App\Filament\Exports\JoggerExporter;
-use App\Filament\FrontPanel\Resources\JoggerResource\Pages\CreateJogger;
-use App\Filament\FrontPanel\Resources\JoggerResource\Pages\EditJogger;
-use App\Filament\FrontPanel\Resources\JoggerResource\Pages\ListJoggers;
-use App\Models\Jogger;
+use App\Filament\Exports\RunnerExporter;
+use App\Filament\FrontPanel\Resources\RunnerResource\Pages\CreateRunner;
+use App\Filament\FrontPanel\Resources\RunnerResource\Pages\EditRunner;
+use App\Filament\FrontPanel\Resources\RunnerResource\Pages\ListRunner;
+use App\Models\Runner;
 use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -15,9 +15,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class JoggerResource extends Resource
+class RunnerResource extends Resource
 {
-    protected static ?string $model = Jogger::class;
+    protected static ?string $model = Runner::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -88,7 +88,7 @@ class JoggerResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\ExportAction::make()
-                    ->exporter(JoggerExporter::class)
+                    ->exporter(RunnerExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,
                     ]),
@@ -110,9 +110,9 @@ class JoggerResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListJoggers::route('/'),
-            'create' => CreateJogger::route('/create'),
-            'edit' => EditJogger::route('/{record}/edit'),
+            'index' => ListRunner::route('/'),
+            'create' => CreateRunner::route('/create'),
+            'edit' => EditRunner::route('/{record}/edit'),
         ];
     }
 }

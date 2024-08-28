@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\FrontPanel\Resources\JoggerResource\Widgets;
+namespace App\Filament\FrontPanel\Resources\RunnerResource\Widgets;
 
 use App\Models\Registration;
 use App\Models\Trail;
@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Auth;
 
 class RegistratioinOverview extends Widget
 {
-    protected static string $view = 'filament.front-panel.resources.jogger-resource.widgets.registratioin-overview';
+    protected static string $view = 'filament.front-panel.resources.runner-resource.widgets.registratioin-overview';
 
-    public Collection|array $joggers = [];
+    public Collection|array $runners = [];
 
     public function mount(): void
     {
@@ -25,7 +25,7 @@ class RegistratioinOverview extends Widget
             ->first();
 
         if ($registration) {
-            $this->joggers = $registration->joggers()->all();
+            $this->runners = $registration->runners()->all();
         }
     }
 

@@ -12,7 +12,7 @@ class Homepage extends Page
     protected static string $view = 'filament.pages.home';
     // protected static bool $shouldRegisterNavigation = false;
 
-    public $joggers = [];
+    public $runners = [];
 
     public function getSubheading(): ?string
     {
@@ -26,7 +26,7 @@ class Homepage extends Page
 
     public function mount(): void
     {
-        $this->joggers = DB::table('joggers')->get();
+        $this->runners = DB::table('runners')->get();
     }
 
     public function getLayout(): string

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Jogger extends Model
+class Runner extends Model
 {
     use HasFactory;
 
@@ -27,9 +27,9 @@ class Jogger extends Model
         return $this->belongsToMany(Registration::class)->withTimestamps();
     }
 
-    /*  public function registrationJoggers(): BelongsToMany
+    /*  public function registrationRunners(): BelongsToMany
       {
-          return $this->belongsToMany(RegistrationJogger::class)
+          return $this->belongsToMany(RegistrationRunner::class)
               ->withTimestamps();
       }*/
 

@@ -3,8 +3,8 @@
     <h3>Liste des inscrits</h3>
 
     <ul>
-        @foreach ($joggers as $jogger)
-            <li>{{ $jogger->first_name }} {{ $jogger->last_name }}</li>
+        @foreach ($runners as $runner)
+            <li>{{ $runner->first_name }} {{ $runner->last_name }}</li>
         @endforeach
     </ul>
 

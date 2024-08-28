@@ -37,12 +37,12 @@ class RegistrationResource extends Resource
                         ]),
                     Wizard\Step::make('Liste des marcheurs')
                         ->schema([
-                            Forms\Components\Repeater::make('joggers')
+                            Forms\Components\Repeater::make('runner_id')
                                 ->columns(2)
-                                ->relationship('joggers')
+                                ->relationship('runners')
                                 //->addable(false)
                                 ->reorderable(false)
-                                ->addActionLabel(__('messages.register.form.btn.add.jogger.label'))
+                                ->addActionLabel(__('messages.register.form.btn.add.runner.label'))
                                 ->schema([
                                     Forms\Components\TextInput::make('first_name')
                                         ->required()
@@ -74,7 +74,7 @@ class RegistrationResource extends Resource
                 Tables\Columns\TextColumn::make('user.first_name')->searchable(),
                 Tables\Columns\TextColumn::make('user.last_name')->searchable(),
                 Tables\Columns\TextColumn::make('user.email')->searchable(),
-                Tables\Columns\TextColumn::make('joggers')->counts('joggers'),
+                Tables\Columns\TextColumn::make('runners')->counts('runners'),
             ])
             ->filters([
                 //

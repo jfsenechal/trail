@@ -22,12 +22,12 @@ class DatabaseSeeder extends Seeder
         $admin = Role::factory()->create([
             'name' => Role::ROLE_ADMIN,
         ]);
-        $jogger = Role::factory()->create([
-            'name' => Role::ROLE_JOGGER,
+        $runner = Role::factory()->create([
+            'name' => Role::ROLE_RUNNER,
         ]);
         $user = User::factory()
             ->hasAttached($admin)
-            ->hasAttached($jogger)
+            ->hasAttached($runner)
             ->create([
                 'name' => 'Test User',
                 'first_name' => 'Jf',

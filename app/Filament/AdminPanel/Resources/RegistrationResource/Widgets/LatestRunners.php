@@ -2,7 +2,7 @@
 
 namespace App\Filament\AdminPanel\Resources\RegistrationResource\Widgets;
 
-use App\Models\Jogger;
+use App\Models\Runner;
 use App\Models\User;
 use Filament\Tables\Columns\TextColumn;
 use App\Models\Registration;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
 /**
- * INFO  Make sure to register the widget in `JoggerResource::getWidgets()`, and then again in `getHeaderWidgets()` or `getFooterWidgets()` of any `JoggerResource` page.
+ * INFO  Make sure to register the widget in `RunnerResource::getWidgets()`, and then again in `getHeaderWidgets()` or `getFooterWidgets()` of any `RunnerResource` page.
  */
-class LatestJoggers extends BaseWidget
+class LatestRunners extends BaseWidget
 {
     protected static ?string $model = Registration::class;
 
-    public Collection|array $joggers = [];
+    public Collection|array $runners = [];
 
     public function mount(): void
     {
@@ -32,7 +32,7 @@ class LatestJoggers extends BaseWidget
             ->first();
 
         if ($registration) {
-            $this->joggers = $registration->joggers()->all();
+            $this->runners = $registration->runners()->all();
         }
     }
 

@@ -28,8 +28,8 @@ class Registration extends Model
         return $this->belongsTo(User::class);//belong id set here
     }
 
-    public function joggers(): BelongsToMany
+    public function runners(): BelongsToMany
     {
-        return $this->belongsToMany(Jogger::class)->withTimestamps();
+        return $this->belongsToMany(Runner::class)->withTimestamps();
     }
 }
