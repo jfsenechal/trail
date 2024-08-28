@@ -17,10 +17,6 @@ class Register extends BaseRegister
 {
     public function form(Form $form): Form
     {
-        $user = User::all()->first();
-        $token = $user->createToken(config('app.name'));
-        Mail::to($user->email)->send(new RegistrationCompleted($user, $token));
-
         return $form
             ->schema([
                 $this->getFirstNameFormComponent(),

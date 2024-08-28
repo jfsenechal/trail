@@ -9,25 +9,24 @@ use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
-    public function __invoke(Request $request): RedirectResponse
+    public function login(Request $request): RedirectResponse
     {
         $token = $request->query('token');
-        session()->flash('message', 'Post successfully updated.');
-        dd($token);
+        session()->flash('message', 'messages.auth.token.error');
+
         if ($token) {
             $accessToken = PersonalAccessToken::findToken($token);
 
             if ($accessToken && $accessToken->tokenable) {
                 $user = $accessToken->tokenable;
-                dd($token);
+
                 Auth::login($user);
 
-                return redirect()->route('/front');
+                return redirect()->route('filament.front.pages.dashboard');
             }
         }
 
         session()->flash('error', 'messages.auth.token.error');
-        dd($token);
 
         return redirect()->route('/');
     }

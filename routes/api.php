@@ -9,5 +9,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')
-    ->get('/protected-route', [AuthController::class])
+    ->get('/protected-route', [AuthController::class, 'login'])
     ->name('protected.route');

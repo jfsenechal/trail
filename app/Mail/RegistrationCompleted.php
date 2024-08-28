@@ -4,14 +4,12 @@ namespace App\Mail;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Laravel\Sanctum\NewAccessToken;
-use Laravel\Sanctum\PersonalAccessToken;
 
 class RegistrationCompleted extends Mailable
 {
@@ -42,13 +40,11 @@ class RegistrationCompleted extends Mailable
     public function content(): Content
     {
         return new Content(
-        //markdown: 'mail.registration-sended',
-            markdown: 'emails.registration-sended',
+            markdown: 'mail.registration-completed',
             with: [
                 'user' => $this->user,
-                'token' => $this->token,
                 'textbtn' => __('messages.btn.access_platform.label'),
-                'plainTextToken' => $this->token->plainTextToken,
+                'url' => route('protected.route', ['token' => $this->token->plainTextToken]),
             ],
         //    text: 'mail.orders.shipped-text',
         );
