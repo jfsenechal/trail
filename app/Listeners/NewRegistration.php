@@ -6,8 +6,10 @@ use App\Mail\RegistrationCompleted;
 use App\Models\Jogger;
 use App\Models\Registration;
 use App\Models\Trail;
+use App\Models\User;
 use Filament\Events\Auth\Registered;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class NewRegistration
 {
@@ -24,7 +26,12 @@ class NewRegistration
      */
     public function handle(Registered $event): void
     {
+        /**
+         * @var User $user
+         */
         $user = $event->getUser();
+        $token = $user->createToken(config('app.name'));
+
         $trail = Trail::all()->first;
         $registrations = DB::table('registrations')
             ->where('user_id', '=', $user->id)
@@ -41,6 +48,6 @@ class NewRegistration
         );
         $registration->joggers()->attach($jogger);
 
-        Mail::to($user->email)->send(new RegistrationCompleted($user));
+        Mail::to($user->email)->send(new RegistrationCompleted($user, $token));
     }
 }

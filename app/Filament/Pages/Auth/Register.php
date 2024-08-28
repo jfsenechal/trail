@@ -2,18 +2,25 @@
 
 namespace App\Filament\Pages\Auth;
 
+use App\Mail\RegistrationCompleted;
 use App\Models\Role;
+use App\Models\User;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Auth\Register as BaseRegister;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class Register extends BaseRegister
 {
     public function form(Form $form): Form
     {
+        $user = User::all()->first();
+        $token = $user->createToken(config('app.name'));
+        Mail::to($user->email)->send(new RegistrationCompleted($user, $token));
+
         return $form
             ->schema([
                 $this->getFirstNameFormComponent(),

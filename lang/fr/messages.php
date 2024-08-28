@@ -7,4 +7,5 @@ return [
     'register.form.last_name.label' => 'Nom',
     'navigation.admin.dashboard' => 'Admin',
     'navigation.website' => 'Marcheurs de la Famenne',
+    'auth.token.error' => 'Error authenticating token',
 ];

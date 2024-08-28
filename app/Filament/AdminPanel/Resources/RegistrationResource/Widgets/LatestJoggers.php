@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\FrontPanel\Resources\JoggerResource\Widgets;
+namespace App\Filament\AdminPanel\Resources\RegistrationResource\Widgets;
 
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;

@@ -7,4 +7,6 @@ return [
     'register.form.last_name.label' => 'Last Name',
     'navigation.admin.dashboard' => 'Admin',
     'navigation.website' => 'Walkers of the famenne',
+    'auth.token.error' => 'Error authenticating token',
+    'btn.access_platform.label' => 'Access to the platform',
 ];

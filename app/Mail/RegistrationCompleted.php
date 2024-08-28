@@ -10,6 +10,8 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Laravel\Sanctum\NewAccessToken;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class RegistrationCompleted extends Mailable
 {
@@ -18,7 +20,9 @@ class RegistrationCompleted extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public User $user,
+    public function __construct(
+        public User $user,
+        public NewAccessToken $token,
     ) {}
 
     /**
@@ -38,11 +42,14 @@ class RegistrationCompleted extends Mailable
     public function content(): Content
     {
         return new Content(
-        // markdown: 'mail.registration-sended',
-            view: 'mail.orders.shipped', with: [
-            'orderName' => $this->user->name,
-            'orderPrice' => $this->user->email,
-        ],
+        //markdown: 'mail.registration-sended',
+            markdown: 'emails.registration-sended',
+            with: [
+                'user' => $this->user,
+                'token' => $this->token,
+                'textbtn' => __('messages.btn.access_platform.label'),
+                'plainTextToken' => $this->token->plainTextToken,
+            ],
         //    text: 'mail.orders.shipped-text',
         );
     }
