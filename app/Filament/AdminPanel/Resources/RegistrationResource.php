@@ -23,6 +23,9 @@ class RegistrationResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Hidden::make('user_id')
+                    ->required()
+                    ->default(auth()->id()),
                 Wizard::make([
                     Wizard\Step::make('Pour quel trail')
                         ->icon('heroicon-m-shopping-bag')
@@ -32,29 +35,15 @@ class RegistrationResource extends Resource
                                 ->relationship(name: 'trail', titleAttribute: 'name')
                                 ->required(),
                         ]),
-                    Wizard\Step::make('Votre email')
-                        ->icon('heroicon-m-shopping-bag')
-                        ->completedIcon('heroicon-m-hand-thumb-up')
-                        ->description('Review your basket')
-                        ->schema([
-                            Forms\Components\Select::make('user_id')
-                                ->required()
-                                ->disableOptionWhen(false)
-                                ->relationship(name: 'user', titleAttribute: 'email')
-                                ->createOptionForm([
-                                    Forms\Components\TextInput::make('email')
-                                        ->label('Email address')
-                                        ->email()
-                                        ->maxLength(150),
-                                ]),
-                        ]),
                     Wizard\Step::make('Liste des marcheurs')
                         ->schema([
-                            Forms\Components\Select::make('jogger_id')
-                                ->multiple()
-                                //  ->disabled()
-                                ->relationship('joggers', 'first_name')
-                                ->createOptionForm([
+                            Forms\Components\Repeater::make('joggers')
+                                ->columns(2)
+                                ->relationship('joggers')
+                                //->addable(false)
+                                ->reorderable(false)
+                                ->addActionLabel(__('messages.register.form.btn.add.jogger.label'))
+                                ->schema([
                                     Forms\Components\TextInput::make('first_name')
                                         ->required()
                                         ->maxLength(150),
@@ -82,7 +71,10 @@ class RegistrationResource extends Resource
     {
         return $table
             ->columns([
-
+                Tables\Columns\TextColumn::make('user.first_name')->searchable(),
+                Tables\Columns\TextColumn::make('user.last_name')->searchable(),
+                Tables\Columns\TextColumn::make('user.email')->searchable(),
+                Tables\Columns\TextColumn::make('joggers')->counts('joggers'),
             ])
             ->filters([
                 //
