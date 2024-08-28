@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\FrontPanel\Resources\RunnerResource\Widgets\RegistratioinOverview;
+use App\Filament\FrontPanel\Resources\RunnerResource\Widgets\RegistrationOverview;
 use App\Filament\Pages\Auth\EditProfile;
 use App\Filament\Pages\Auth\Register;
 use App\Models\Role;
@@ -53,7 +53,7 @@ class FrontPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/FrontPanel/Widgets'), for: 'App\\Filament\\FrontPanel\\Widgets')
             ->widgets([
-                RegistratioinOverview::class,
+                RegistrationOverview::class,
                 Widgets\AccountWidget::class,
             ])
             ->middleware([

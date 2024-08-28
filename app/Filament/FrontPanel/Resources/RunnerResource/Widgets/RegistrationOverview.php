@@ -8,9 +8,9 @@ use Filament\Widgets\Widget;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class RegistratioinOverview extends Widget
+class RegistrationOverview extends Widget
 {
-    protected static string $view = 'filament.front-panel.resources.runner-resource.widgets.registratioin-overview';
+    protected static string $view = 'filament.front-panel.resources.runner-resource.widgets.registration-overview';
 
     public Collection|array $runners = [];
 
