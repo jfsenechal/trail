@@ -5,16 +5,18 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
+use Filament\Models\Contracts\HasName;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser, HasAvatar
+class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     private ?string $avatar_url = null;
 
@@ -47,7 +49,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
 
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class);
+        return $this->BelongsToMany(Role::class);
     }
 
     /**
@@ -64,26 +66,33 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         ];
     }
 
-    public function hasRole(string $role): bool
+    public function hasRole(string $roleToFind): bool
     {
-        dump($this->roles);
+        foreach ($this->roles()->get() as $role) {
+            if ($role->name === $roleToFind) {
+                return true;
+            }
+        }
 
-        return in_array($role, $this->roles);
+        return false;
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
         if ($panel->getId() === 'admin') {
-            return $this->hasRole('admin');
+            return $this->hasRole('admin') && $this->hasVerifiedEmail();
         }
 
         if ($panel->getId() === 'front') {
-            dd($this->hasRole('admin'));
-
-            return $this->hasRole('jogger');
+            return $this->hasRole('jogger') && $this->hasVerifiedEmail();
         }
 
         return false;
+    }
+
+    public function getFilamentName(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 
     public function getFilamentAvatarUrl(): ?string

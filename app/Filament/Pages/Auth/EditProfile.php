@@ -6,11 +6,11 @@ use App\Models\Role;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Pages\Auth\Register as BaseRegister;
+use Filament\Pages\Auth\EditProfile as BaseEditProfile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class Register extends BaseRegister
+class EditProfile extends BaseEditProfile
 {
     public function form(Form $form): Form
     {
@@ -18,7 +18,10 @@ class Register extends BaseRegister
             ->schema([
                 $this->getFirstNameFormComponent(),
                 $this->getLastNameFormComponent(),
+                // $this->getNameFormComponent(),
                 $this->getEmailFormComponent(),
+                // $this->getPasswordFormComponent(),
+                //  $this->getPasswordConfirmationFormComponent(),
             ]);
     }
 
@@ -34,7 +37,7 @@ class Register extends BaseRegister
     protected function getFirstNameFormComponent(): Component
     {
         return TextInput::make('first_name')
-            ->label(__('messages.register.form.first_name.label'))
+            ->label(__('register.form.first_name.label'))
             ->required()
             ->maxLength(120);
     }
@@ -42,7 +45,7 @@ class Register extends BaseRegister
     protected function getLastNameFormComponent(): Component
     {
         return TextInput::make('last_name')
-            ->label(__('messages.register.form.last_name.label'))
+            ->label(__('register.form.last_name.label'))
             ->required()
             ->maxLength(120);
     }

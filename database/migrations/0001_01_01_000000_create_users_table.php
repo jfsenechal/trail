@@ -5,7 +5,7 @@ use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Symfony\Component\Uid\Uuid;
+use Illuminate\Support\Str;
 
 return new class extends Migration {
     /**
@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('gender')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->uuid()->default(Uuid::v7());
+            $table->uuid()->default(Str::uuid()->toString());
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

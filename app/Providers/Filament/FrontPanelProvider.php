@@ -3,10 +3,13 @@
 namespace App\Providers\Filament;
 
 use App\Filament\FrontPanel\Resources\JoggerResource\Widgets\RegistratioinOverview;
+use App\Filament\Pages\Auth\EditProfile;
 use App\Filament\Pages\Auth\Register;
+use App\Models\Role;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -28,10 +31,14 @@ class FrontPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
             ->id('front')
+            ->default()
             ->login()
-            ->profile()
+            ->brandLogo('https://www.marche.be/administration/files/2014/08/Marche-_logo_quadri.png')
+            ->font('Poppins')
+            ->profile(EditProfile::class)
+            ->passwordReset()
+            ->emailVerification()
             ->registration(Register::class)//https://filamentphp.com/docs/3.x/panels/users#authentication-features
             ->path('front')->colors([
                 'primary' => Color::Amber,
@@ -62,6 +69,18 @@ class FrontPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->navigationItems([
+                NavigationItem::make('Site Marcheurs')
+                    ->url('https://filament.pirsch.io', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-presentation-chart-line')
+                    ->label(__('messages.navigation.website'))
+                    ->sort(3),
+                NavigationItem::make('dashboard22')
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->label(fn(): string => __('messages.navigation.admin.dashboard'))
+                    ->url('/admin')
+                    ->visible(fn(): bool => auth()->user()->hasRole(Role::ROLE_ADMIN)),
             ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Mail\RegistrationCompleted;
 use App\Models\Jogger;
 use App\Models\Registration;
 use App\Models\Trail;
@@ -39,5 +40,7 @@ class NewRegistration
             ['first_name' => $user->first_name, 'last_name' => $user->last_name, 'email' => $user->email],
         );
         $registration->joggers()->attach($jogger);
+
+        Mail::to($user->email)->send(new RegistrationCompleted($user));
     }
 }

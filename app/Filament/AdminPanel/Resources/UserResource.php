@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class UserResource extends Resource
@@ -21,14 +22,21 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('first_name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(120),
+                Forms\Components\TextInput::make('second_name')
+                    ->required()
+                    ->maxLength(120),
                 Forms\Components\TextInput::make('email')
                     ->required()
                     ->email()
                     ->label('Email address')
-                    ->maxLength(255),
+                    ->maxLength(120),
+                Forms\Components\Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload(),
                 Forms\Components\TextInput::make('password')
                     ->required()
                     ->revealable()
@@ -40,11 +48,15 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('first_name')->searchable(),
+                Tables\Columns\TextColumn::make('second_name')->searchable(),
                 Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('roles.name'),
             ])
             ->filters([
-                //
+                SelectFilter::make('roles')
+                    ->relationship('roles', 'name'),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
