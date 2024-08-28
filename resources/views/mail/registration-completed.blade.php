@@ -2,7 +2,10 @@
     # Introduction
     The body of your message.
     ## {{$user->first_name}} {{$user->last_name}}
-    <x-mail::button :url="$url">
+    <x-mail::panel>
+        This is the panel content.
+    </x-mail::panel>
+    <x-mail::button :url="$url" color="success">
         {{$textbtn}}
     </x-mail::button>
     Thanks,<br>

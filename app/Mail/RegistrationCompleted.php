@@ -29,8 +29,8 @@ class RegistrationCompleted extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('jf@marche.be', 'Jeffrey Way'),
-            subject: 'Registration Sended',
+            from: new Address('jf@marche.be', config('APP_NAME')),
+            subject: 'Registration completed',
         );
     }
 
@@ -39,12 +39,14 @@ class RegistrationCompleted extends Mailable
      */
     public function content(): Content
     {
+        $url = route('protected.route', ['token' => $this->token->plainTextToken]);
+
         return new Content(
             markdown: 'mail.registration-completed',
             with: [
                 'user' => $this->user,
                 'textbtn' => __('messages.btn.access_platform.label'),
-                'url' => route('protected.route', ['token' => $this->token->plainTextToken]),
+                'url' => $url,
             ],
         //    text: 'mail.orders.shipped-text',
         );

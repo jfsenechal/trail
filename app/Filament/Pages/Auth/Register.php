@@ -15,8 +15,17 @@ use Illuminate\Support\Str;
 
 class Register extends BaseRegister
 {
+    private function testMail()
+    {
+        $user = User::all()->first();
+        $token = $user->createToken(config('app.name'));
+        Mail::to($user->email)->send(new RegistrationCompleted($user, $token));
+    }
+
     public function form(Form $form): Form
     {
+        // $this->testMail();
+
         return $form
             ->schema([
                 $this->getFirstNameFormComponent(),
