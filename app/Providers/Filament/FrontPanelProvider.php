@@ -76,7 +76,7 @@ class FrontPanelProvider extends PanelProvider
                     ->icon('heroicon-o-presentation-chart-line')
                     ->label(__('messages.navigation.website'))
                     ->sort(3),
-                NavigationItem::make('dashboard22')
+                NavigationItem::make('dashboard admin')
                     ->icon('heroicon-o-cog-6-tooth')
                     ->label(fn(): string => __('messages.navigation.admin.dashboard'))
                     ->url('/admin')

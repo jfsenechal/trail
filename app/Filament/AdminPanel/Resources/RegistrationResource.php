@@ -24,7 +24,7 @@ class RegistrationResource extends Resource
         return $form
             ->schema([
                 Wizard::make([
-                    Wizard\Step::make('Quel trail')
+                    Wizard\Step::make('Pour quel trail')
                         ->icon('heroicon-m-shopping-bag')
                         ->completedIcon('heroicon-m-hand-thumb-up')
                         ->schema([
@@ -39,7 +39,7 @@ class RegistrationResource extends Resource
                         ->schema([
                             Forms\Components\Select::make('user_id')
                                 ->required()
-                                ->disableOptionWhen(true)
+                                ->disableOptionWhen(false)
                                 ->relationship(name: 'user', titleAttribute: 'email')
                                 ->createOptionForm([
                                     Forms\Components\TextInput::make('email')

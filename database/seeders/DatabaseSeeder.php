@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $jogger = Role::factory()->create([
             'name' => Role::ROLE_JOGGER,
         ]);
-        User::factory()
+        $user = User::factory()
             ->hasAttached($admin)
             ->hasAttached($jogger)
             ->create([
@@ -40,5 +40,7 @@ class DatabaseSeeder extends Seeder
             'location' => 'Marche-en-Famenne',
             'date_occurred' => new \DateTime(),
         ]);
+
+        $user->createToken(config('app.name'));
     }
 }
