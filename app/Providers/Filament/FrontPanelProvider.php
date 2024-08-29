@@ -25,7 +25,6 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class FrontPanelProvider extends PanelProvider
 {
-    protected static string $routePath = 'finance';
     protected static ?string $title = 'Finance dashboard';
 
     public function panel(Panel $panel): Panel

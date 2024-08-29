@@ -13,6 +13,8 @@ use Illuminate\Support\Str;
 
 class Register extends BaseRegister
 {
+    public ?string $plainPassword = null;
+
     private function testMail()
     {
         $user = User::all()->first();
@@ -30,10 +32,7 @@ class Register extends BaseRegister
                     ->schema([
                         $this->getFirstNameFormComponent(),
                         $this->getLastNameFormComponent(),
-                        //$this->getNameFormComponent(),
                         $this->getEmailFormComponent(),
-                        //$this->getPasswordFormComponent(),
-                        //$this->getPasswordConfirmationFormComponent(),
                     ])
                     ->statePath('data'),
             ),
@@ -42,7 +41,10 @@ class Register extends BaseRegister
 
     protected function mutateFormDataBeforeRegister(array $data): array
     {
-        $data['password'] = Hash::make(Str::password(length: 16));
+        $plainPassword = Str::password(length: 16, symbols: false);
+        $this->plainPassword = $plainPassword;
+        $data['plainPassword'] = $plainPassword;
+        $data['password'] = Hash::make($plainPassword);
         $data['name'] = $data['first_name'];
 
         return $data;

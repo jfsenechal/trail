@@ -14,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class RunnerResource extends Resource
 {
@@ -70,20 +71,7 @@ class RunnerResource extends Resource
     {
         return $table
             ->description('Vos participants')
-            /*    ->query(function (Builder $query, string $search = 'jf'): Builder {
-                    return $query
-                        ->where('first_name', 'like', "%{$search}%")
-                        ->orWhere('last_name', 'like', "%{$search}%");
-                })*/
-            /* ->query(function (Builder $query): Builder {
-                 return $query->where('first_name', 'jf')->orderBy('created_at', 'desc');
-             })  */
-            //    ->query(fn(Builder $query) => $query->with('author')->where('status', 'published'))
-            /*   ->query(function (Builder $query) {
-                   $query->setModel(new Runner());
-
-                   return $query->get();
-               })*/
+            ->modifyQueryUsing(fn(Builder $query) => $query->where('user_id', auth()->id()))
             ->columns([
                 Tables\Columns\TextColumn::make('last_name')->searchable(),
                 Tables\Columns\TextColumn::make('fist_name')->searchable(),

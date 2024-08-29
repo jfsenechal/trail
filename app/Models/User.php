@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasName;
@@ -19,6 +18,30 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     use HasApiTokens, HasFactory, Notifiable;
 
     private ?string $avatar_url = null;
+    //to send by email
+    public ?string $plainPassword = null;
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'plainPassword',
+    ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            // Unset the field so it doesn't save to the database
+            $model->plainPassword = $model->attributes['plainPassword'];
+            unset($model->attributes['plainPassword']);
+        });
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -30,16 +53,6 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'last_name',
         'email',
         'gender',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
     ];
 
     public function registrations(): hasMany

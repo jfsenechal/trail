@@ -4,6 +4,11 @@
     ## {{$user->first_name}} {{$user->last_name}}
     <x-mail::panel>
         This is the panel content.
+
+        Login: {{$user->email}}
+
+        Password: {{$user->plainPassord}}
+
     </x-mail::panel>
     <x-mail::button :url="$url" color="success">
         {{$textbtn}}

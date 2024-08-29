@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class RegistrationResource extends Resource
 {
@@ -26,12 +27,12 @@ class RegistrationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn(Builder $query) => $query->where('user_id', auth()->id()))
             ->columns([
                 Tables\Columns\TextColumn::make('user.first_name')->searchable(),
                 Tables\Columns\TextColumn::make('user.last_name')->searchable(),
                 Tables\Columns\TextColumn::make('user.email')->searchable(),
             ])
-            //    ->query()
             ->filters([
                 //
             ])
