@@ -52,6 +52,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         return $this->BelongsToMany(Role::class);
     }
 
+    public function runners(): hasMany
+    {
+        return $this->hasMany(Runner::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

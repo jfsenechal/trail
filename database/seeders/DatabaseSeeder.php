@@ -19,15 +19,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = Role::factory()->create([
+        $adminRole = Role::factory()->create([
             'name' => Role::ROLE_ADMIN,
         ]);
-        $runner = Role::factory()->create([
+        $runnerRole = Role::factory()->create([
             'name' => Role::ROLE_RUNNER,
         ]);
         $user = User::factory()
-            ->hasAttached($admin)
-            ->hasAttached($runner)
+            ->hasAttached($adminRole)
+            ->hasAttached($runnerRole)
             ->create([
                 'name' => 'Test User',
                 'first_name' => 'Jf',

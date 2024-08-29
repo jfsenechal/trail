@@ -6,7 +6,6 @@ use App\Mail\RegistrationCompleted;
 use App\Models\User;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Pages\Auth\Register as BaseRegister;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;

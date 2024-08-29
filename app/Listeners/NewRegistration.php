@@ -28,15 +28,29 @@ class NewRegistration
     public function handle(Registered $event): void
     {
         /**
+         * Create token
          * @var User $user
          */
         $user = $event->getUser();
         $token = $user->createToken(config('app.name'));
 
-        $runner = Role::factory()->create([
-            'name' => Role::ROLE_RUNNER,
-        ]);
-        $user->roles()->attach($runner);
+        /**
+         * Attach role
+         */
+        $runnerRole = Role::where('name', Role::ROLE_RUNNER)->get()->first();
+        $user->roles()->attach($runnerRole);
+
+        /**
+         * Create a runner
+         */
+        $runner = new Runner(
+            ['first_name' => $user->first_name, 'last_name' => $user->last_name, 'email' => $user->email],
+        );
+        $runner->user()->associate($user)->save();
+
+        /**
+         * Create registration
+         */
         $trail = Trail::all()->first;
         $registrations = DB::table('registrations')
             ->where('user_id', '=', $user->id)
@@ -48,11 +62,11 @@ class NewRegistration
         } else {
             $registration = $registrations->first();
         }
-        $runner = Runner::create(
-            ['first_name' => $user->first_name, 'last_name' => $user->last_name, 'email' => $user->email],
-        );
         $registration->runners()->attach($runner);
 
+        /**
+         * Send mail
+         */
         Mail::to($user->email)->send(new RegistrationCompleted($user, $token));
     }
 }
