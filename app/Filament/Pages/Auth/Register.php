@@ -3,7 +3,6 @@
 namespace App\Filament\Pages\Auth;
 
 use App\Mail\RegistrationCompleted;
-use App\Models\Role;
 use App\Models\User;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
@@ -22,22 +21,29 @@ class Register extends BaseRegister
         Mail::to($user->email)->send(new RegistrationCompleted($user, $token));
     }
 
-    public function form(Form $form): Form
+    protected function getForms(): array
     {
-        // $this->testMail();
-
-        return $form
-            ->schema([
-                $this->getFirstNameFormComponent(),
-                $this->getLastNameFormComponent(),
-                $this->getEmailFormComponent(),
-            ]);
+        return [
+            'form' => $this->form(
+                $this
+                    ->makeForm()
+                    ->columns(2)
+                    ->schema([
+                        $this->getFirstNameFormComponent(),
+                        $this->getLastNameFormComponent(),
+                        //$this->getNameFormComponent(),
+                        $this->getEmailFormComponent(),
+                        //$this->getPasswordFormComponent(),
+                        //$this->getPasswordConfirmationFormComponent(),
+                    ])
+                    ->statePath('data'),
+            ),
+        ];
     }
 
     protected function mutateFormDataBeforeRegister(array $data): array
     {
         $data['password'] = Hash::make(Str::password(length: 16));
-        $data['roles'] = json_encode([Role::ROLE_RUNNER]);
         $data['name'] = $data['first_name'];
 
         return $data;

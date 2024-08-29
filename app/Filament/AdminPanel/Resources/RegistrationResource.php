@@ -41,6 +41,7 @@ class RegistrationResource extends Resource
                                 ->columns(2)
                                 ->relationship('runners')
                                 //->addable(false)
+                                ->minItems(1)
                                 ->reorderable(false)
                                 ->addActionLabel(__('messages.register.form.btn.add.runner.label'))
                                 ->schema([

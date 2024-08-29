@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Mail\RegistrationCompleted;
+use App\Models\Role;
 use App\Models\Runner;
 use App\Models\Registration;
 use App\Models\Trail;
@@ -32,6 +33,10 @@ class NewRegistration
         $user = $event->getUser();
         $token = $user->createToken(config('app.name'));
 
+        $runner = Role::factory()->create([
+            'name' => Role::ROLE_RUNNER,
+        ]);
+        $user->roles()->attach($runner);
         $trail = Trail::all()->first;
         $registrations = DB::table('registrations')
             ->where('user_id', '=', $user->id)

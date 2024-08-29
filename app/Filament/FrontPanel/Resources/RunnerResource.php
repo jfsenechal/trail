@@ -31,16 +31,16 @@ class RunnerResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('last_name')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(120),
                         Forms\Components\TextInput::make('first_name')
                             ->label(__('messages.first_name'))
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(120),
                         Forms\Components\TextInput::make('email')
                             ->required()
                             ->email()
                             ->label('Email address')
-                            ->maxLength(255)
+                            ->maxLength(120)
                             ->suffixIcon('heroicon-m-at-symbol'),
                         Forms\Components\TextInput::make('phone')
                             ->tel()
@@ -69,6 +69,21 @@ class RunnerResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->description('Vos participants')
+            /*    ->query(function (Builder $query, string $search = 'jf'): Builder {
+                    return $query
+                        ->where('first_name', 'like', "%{$search}%")
+                        ->orWhere('last_name', 'like', "%{$search}%");
+                })*/
+            /* ->query(function (Builder $query): Builder {
+                 return $query->where('first_name', 'jf')->orderBy('created_at', 'desc');
+             })  */
+            //    ->query(fn(Builder $query) => $query->with('author')->where('status', 'published'))
+            /*   ->query(function (Builder $query) {
+                   $query->setModel(new Runner());
+
+                   return $query->get();
+               })*/
             ->columns([
                 Tables\Columns\TextColumn::make('last_name')->searchable(),
                 Tables\Columns\TextColumn::make('fist_name')->searchable(),
@@ -103,7 +118,7 @@ class RunnerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

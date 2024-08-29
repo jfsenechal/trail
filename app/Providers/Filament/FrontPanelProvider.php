@@ -72,7 +72,7 @@ class FrontPanelProvider extends PanelProvider
             ])
             ->navigationItems([
                 NavigationItem::make('Site Marcheurs')
-                    ->url('https://filament.pirsch.io', shouldOpenInNewTab: true)
+                    ->url('https://marcheursdelafamenne.marche.be', shouldOpenInNewTab: true)
                     ->icon('heroicon-o-presentation-chart-line')
                     ->label(__('messages.navigation.website'))
                     ->sort(3),

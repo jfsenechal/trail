@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->date('date_of_birth')->nullable();
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();
-            $table->boolean('display_name')->default(false);
+            $table->string('display_name')->nullable();
             $table->boolean('gdpr_accepted')->default(false);
             $table->timestamps();
         });

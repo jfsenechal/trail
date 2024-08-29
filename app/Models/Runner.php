@@ -22,15 +22,15 @@ class Runner extends Model
         'gdpr_accepted',
     ];
 
+    protected function casts(): array
+    {
+        return [
+
+        ];
+    }
+
     public function registrations(): BelongsToMany
     {
         return $this->belongsToMany(Registration::class)->withTimestamps();
     }
-
-    /*  public function registrationRunners(): BelongsToMany
-      {
-          return $this->belongsToMany(RegistrationRunner::class)
-              ->withTimestamps();
-      }*/
-
 }
