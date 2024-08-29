@@ -1,5 +1,6 @@
 <x-mail::message>
     <x-mail::panel>
+        ## Informations de connection
         Utilisez le bouton ci dessous.
         <x-mail::button :url="$url" color="success">
             {{$textbtn}}
@@ -14,6 +15,7 @@
         @endif
 
         [title](https://www.example.com)
+
         # Welcome {{$user->first_name}} {{$user->last_name}}
 
         ## Etapes pour votre enregistrement au {{ config('app.name') }}
@@ -22,8 +24,9 @@
         - Payer votre participation
 
         ---
-
-        ## Informations de connection
+        <x-mail::subcopy>
+            Ma subcopy
+        </x-mail::subcopy>
 
         Thanks,<br>
         {{ config('app.name') }}</x-mail::panel>

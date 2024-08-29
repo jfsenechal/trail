@@ -24,6 +24,8 @@ class Register extends BaseRegister
 
     protected function getForms(): array
     {
+        //$this->testMail();
+
         return [
             'form' => $this->form(
                 $this

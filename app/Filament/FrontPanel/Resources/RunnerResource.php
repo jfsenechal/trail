@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 class RunnerResource extends Resource
 {
     protected static ?string $model = Runner::class;
+    protected static ?string $navigationLabel = 'Mes runners';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
