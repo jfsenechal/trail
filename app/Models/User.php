@@ -38,8 +38,10 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
 
         static::saving(function ($model) {
             // Unset the field so it doesn't save to the database
-            $model->plainPassword = $model->attributes['plainPassword'];
-            unset($model->attributes['plainPassword']);
+            if (isset($model->attributes['plainPassword'])) {
+                $model->plainPassword = $model->attributes['plainPassword'];
+                unset($model->attributes['plainPassword']);
+            }
         });
     }
 
