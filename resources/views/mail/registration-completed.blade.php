@@ -1,33 +1,30 @@
 <x-mail::message>
-    <x-mail::panel>
-        ## Informations de connection
-        Utilisez le bouton ci dessous.
-        <x-mail::button :url="$url" color="success">
-            {{$textbtn}}
-        </x-mail::button>
+# Welcome {{$user->first_name}} {{$user->last_name}}
 
-        @if ($user->plainPassword)
-            Ou connectez vous avec le compte suivant:
+## Etapes pour votre enregistrement au {{ config('app.name') }}
 
-            Login: {{$user->email}}
+- Ajouter d'autres participants
+- Payer votre participation
 
-            Password: {{$user->plainPassword}}
-        @endif
+---
+## Informations de connection
+Utilisez le bouton ci dessous.
+<x-mail::button :url="$url" color="success">
+    {{$textbtn}}
+</x-mail::button>
+<x-mail::panel>
+@if ($user->plainPassword)
+    Ou connectez vous avec le compte suivant:
 
-        [title](https://www.example.com)
+    Login: {{$user->email}}
 
-        # Welcome {{$user->first_name}} {{$user->last_name}}
-
-        ## Etapes pour votre enregistrement au {{ config('app.name') }}
-
-        - Ajouter d'autres participants
-        - Payer votre participation
-
-        ---
-        <x-mail::subcopy>
-            Ma subcopy
-        </x-mail::subcopy>
-
-        Thanks,<br>
-        {{ config('app.name') }}</x-mail::panel>
+    Password: {{$user->plainPassword}}
+@endif
+</x-mail::panel>
+[Site web des Marcheurs de la Famenne](https://marcheursdelafamenne.marche.be/)
+<x-mail::subcopy>
+    Ma subcopy
+</x-mail::subcopy>
+Thanks,<br>
+{{ config('app.name') }}
 </x-mail::message>
