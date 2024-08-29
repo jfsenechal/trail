@@ -1,15 +1,30 @@
 <x-mail::message>
-    # Introduction
-    The body of your message.
-    ## {{$user->first_name}} {{$user->last_name}}
+    # Welcome {{$user->first_name}} {{$user->last_name}}
+
+    ## Etapes pour votre enregistrement au {{ config('app.name') }}
+
+    - Ajouter d'autres participants
+    - Payer votre participation
+
+    ---
+
+    ## Informations de connection
+
     <x-mail::panel>
-        This is the panel content.
+        Utilisez le bouton ci dessous.
 
-        Login: {{$user->email}}
+        @if ($user->plainPassword)
+            Ou connectez vous avec le compte suivant:
 
-        Password: {{$user->plainPassord}}
+            Login: {{$user->email}}
+
+            Password: {{$user->plainPassword}}
+        @endif
+
+        [title](https://www.example.com)
 
     </x-mail::panel>
+
     <x-mail::button :url="$url" color="success">
         {{$textbtn}}
     </x-mail::button>
