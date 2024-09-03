@@ -2,8 +2,8 @@
 
 use App\Filament\Pages\Homepage;
 use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', Homepage::class);
 

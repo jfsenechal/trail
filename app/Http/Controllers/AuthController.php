@@ -28,6 +28,6 @@ class AuthController extends Controller
 
         session()->flash('error', 'messages.auth.token.error');
 
-        return redirect()->route('/');
+        return redirect()->route('login');
     }
 }

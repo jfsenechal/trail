@@ -9,7 +9,6 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Laravel\Sanctum\NewAccessToken;
 
 class RegistrationCompleted extends Mailable
 {
@@ -20,7 +19,7 @@ class RegistrationCompleted extends Mailable
      */
     public function __construct(
         public User $user,
-        public NewAccessToken $token,
+        public string $token,
     ) {}
 
     /**
@@ -39,7 +38,7 @@ class RegistrationCompleted extends Mailable
      */
     public function content(): Content
     {
-        $url = route('protected.route', ['token' => $this->token->plainTextToken]);
+        $url = route('protected.route', ['token' => $this->token]);
 
         return new Content(
             markdown: 'mail.registration-completed',

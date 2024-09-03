@@ -2,9 +2,10 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\FrontPanel\Resources\RunnerResource\Widgets\RegistrationOverview;
+use App\Filament\FrontPanel\Resources\RunnerResource\Widgets\ListRunners;
 use App\Filament\Pages\Auth\EditProfile;
 use App\Filament\Pages\Auth\Register;
+use App\Filament\Pages\Auth\RequestPasswordReset;
 use App\Models\Role;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -36,7 +37,7 @@ class FrontPanelProvider extends PanelProvider
             ->brandLogo('https://www.marche.be/administration/files/2014/08/Marche-_logo_quadri.png')
             ->font('Poppins')
             ->profile(EditProfile::class)
-            ->passwordReset()
+            ->passwordReset(RequestPasswordReset::class)
             ->emailVerification()
             ->registration(Register::class)//https://filamentphp.com/docs/3.x/panels/users#authentication-features
             ->path('front')->colors([
@@ -52,7 +53,7 @@ class FrontPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/FrontPanel/Widgets'), for: 'App\\Filament\\FrontPanel\\Widgets')
             ->widgets([
-                RegistrationOverview::class,
+                ListRunners::class,
                 Widgets\AccountWidget::class,
             ])
             ->middleware([

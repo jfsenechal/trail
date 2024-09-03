@@ -3,7 +3,6 @@
 namespace App\Filament\FrontPanel\Resources\RegistrationResource\Pages;
 
 use App\Filament\FrontPanel\Resources\RegistrationResource;
-use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;

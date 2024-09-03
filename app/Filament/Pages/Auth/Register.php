@@ -19,7 +19,7 @@ class Register extends BaseRegister
     {
         $user = User::all()->first();
         $token = $user->createToken(config('app.name'));
-        Mail::to($user->email)->send(new RegistrationCompleted($user, $token));
+        Mail::to($user->email)->send(new RegistrationCompleted($user, $token->plainTextToken));
     }
 
     protected function getForms(): array

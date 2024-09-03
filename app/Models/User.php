@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -20,6 +21,15 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     private ?string $avatar_url = null;
     //to send by email
     public ?string $plainPassword = null;
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email:dns',
+            'name' => 'required|string',
+            'password' => 'required|string|min:8',
+        ]);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -60,6 +70,13 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     public function registrations(): hasMany
     {
         return $this->hasMany(Registration::class);
+    }
+
+    public function usersHasRegistrations()
+    {
+        return User::withWhereHas('registrations', function ($query) {
+            $query->where('xxxx', true);
+        })->get();
     }
 
     public function roles(): BelongsToMany

@@ -2,6 +2,7 @@
 
 namespace App\Filament\FrontPanel\Resources;
 
+use App\Constant\DisplayNameEnum;
 use App\Filament\Exports\RunnerExporter;
 use App\Filament\FrontPanel\Resources\RunnerResource\Pages\CreateRunner;
 use App\Filament\FrontPanel\Resources\RunnerResource\Pages\EditRunner;
@@ -25,9 +26,11 @@ class RunnerResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(3)
             ->schema([
                 Section::make()
                     ->id('main-section')
+                    ->columnSpan(2)
                     ->description('Coordonnées')
                     ->columns(2)
                     ->schema([
@@ -50,10 +53,24 @@ class RunnerResource extends Resource
                         Forms\Components\DatePicker::make('date_of_birth')
                             ->required()
                             ->maxDate(now()),
-                        Forms\Components\Checkbox::make('display_name')
+                        Forms\Components\FileUpload::make('photo')
+                            ->image()
+                            ->imageEditor()
+                            ->circleCropper()
+                            ->columnSpan(2),
+                    ]),
+                Section::make()
+                    ->id('side-section')
+                    ->columnSpan(1)
+                    ->schema([
+                        Forms\Components\Select::make('display_name')
                             ->required()
+                            ->label(__('messages.display_name.select.label'))
                             ->helperText(
-                                'Vous pouvez choisir que votre nom apparaisse ou pas dans les résultats de l\'épreuve. Merci de nous préciser votre choix.',
+                                __('messages.display_name.select.help'),
+                            )
+                            ->options(
+                                DisplayNameEnum::class,
                             ),
                         Forms\Components\Checkbox::make('gdpr_accepted')
                             ->required()
@@ -61,10 +78,6 @@ class RunnerResource extends Resource
                                 'J\'ai pris connaissance du règlement.',
                             ),
                     ]),
-                Forms\Components\FileUpload::make('photo')
-                    ->image()
-                    ->imageEditor()
-                    ->circleCropper(),
             ]);
     }
 
@@ -75,7 +88,7 @@ class RunnerResource extends Resource
             ->modifyQueryUsing(fn(Builder $query) => $query->where('user_id', auth()->id()))
             ->columns([
                 Tables\Columns\TextColumn::make('last_name')->searchable(),
-                Tables\Columns\TextColumn::make('fist_name')->searchable(),
+                Tables\Columns\TextColumn::make('first_name')->searchable(),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('date_of_birth')->sortable(),
                 Tables\Columns\TextColumn::make('phone'),
