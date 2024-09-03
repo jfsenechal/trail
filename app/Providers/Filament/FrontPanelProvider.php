@@ -6,6 +6,7 @@ use App\Filament\FrontPanel\Resources\RunnerResource\Widgets\ListRunners;
 use App\Filament\Pages\Auth\EditProfile;
 use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\Auth\RequestPasswordReset;
+use App\Filament\Pages\Help;
 use App\Models\Role;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -40,6 +41,7 @@ class FrontPanelProvider extends PanelProvider
             ->passwordReset(RequestPasswordReset::class)
             ->emailVerification()
             ->registration(Register::class)//https://filamentphp.com/docs/3.x/panels/users#authentication-features
+            ->unsavedChangesAlerts()
             ->path('front')->colors([
                 'primary' => Color::Amber,
             ])
@@ -50,6 +52,7 @@ class FrontPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/FrontPanel/Pages'), for: 'App\\Filament\\FrontPanel\\Pages')
             ->pages([
                 Pages\Dashboard::class,
+                Help::class,
             ])
             ->discoverWidgets(in: app_path('Filament/FrontPanel/Widgets'), for: 'App\\Filament\\FrontPanel\\Widgets')
             ->widgets([
@@ -81,6 +84,8 @@ class FrontPanelProvider extends PanelProvider
                     ->label(fn(): string => __('messages.navigation.admin.dashboard'))
                     ->url('/admin')
                     ->visible(fn(): bool => auth()->user()->hasRole(Role::ROLE_ADMIN)),
-            ]);
+            ])
+            ->discoverClusters('Filament/Clusters', for: 'App\\Filament\\Clusters')
+            ->viteTheme('resources/css/filament/front/theme.css');
     }
 }

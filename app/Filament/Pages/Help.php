@@ -2,7 +2,6 @@
 
 namespace App\Filament\Pages;
 
-use Filament\Actions\Action;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -15,23 +14,18 @@ class Help extends Page
     protected function getHeaderActions(): array
     {
         return [
-           /* Action::make('edit')
-                ->url(route('posts.edit', ['post' => $this->post])),*/
+            /* Action::make('edit')
+                 ->url(route('posts.edit', ['post' => $this->post])),*/
         ];
     }
 
     public function getTitle(): string|Htmlable
     {
-        return __('Custom Page Title');
-    }
-
-    public function getHeading(): string
-    {
-        return __('Custom Page Heading');
+        return __('Aide');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('Custom Navigation Label');
+        return __('Aide');
     }
 }
