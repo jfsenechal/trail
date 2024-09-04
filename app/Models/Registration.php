@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Number;
 
 class Registration extends Model
@@ -27,6 +28,11 @@ class Registration extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);//belong id set here
+    }
+
+    public function registrationRunner()
+    {
+        return $this->hasOne(RegistrationRunner::class);
     }
 
     public function runners(): BelongsToMany

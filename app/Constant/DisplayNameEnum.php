@@ -2,6 +2,7 @@
 
 namespace App\Constant;
 
+use Filament\Support\Contracts\HasDescription;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 
