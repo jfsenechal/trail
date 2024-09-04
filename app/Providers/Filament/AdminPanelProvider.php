@@ -27,8 +27,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->profile()
-            ->brandLogo('https://www.marche.be/administration/files/2014/08/Marche-_logo_quadri.png')
-            ->brandName('Hi jf')
+            // ->brandLogo('https://www.marche.be/administration/files/2014/08/Marche-_logo_quadri.png')
+            //   ->brandName('Hi jf')
             ->brandLogoHeight('10rem')
             ->colors([
                 'primary' => Color::Amber,

@@ -14,4 +14,5 @@ return [
     'display_name.anonymous.label' => 'Anonyme',
     'display_name.first_name.label' => 'Uniquement le prénom',
     'display_name.full_name.label' => 'Nom et prénom',
+    'filament.pages.home.register' => 'Register to 100km',
 ];

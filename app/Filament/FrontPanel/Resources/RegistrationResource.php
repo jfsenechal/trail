@@ -29,9 +29,10 @@ class RegistrationResource extends Resource
         return $table
             ->modifyQueryUsing(fn(Builder $query) => $query->where('user_id', auth()->id()))
             ->columns([
-                Tables\Columns\TextColumn::make('user.first_name')->searchable(),
-                Tables\Columns\TextColumn::make('user.last_name')->searchable(),
-                Tables\Columns\TextColumn::make('user.email')->searchable(),
+                Tables\Columns\TextColumn::make('trail.name')->label('Trail'),
+                Tables\Columns\TextColumn::make('user.first_name')->searchable()->label('First name'),
+                Tables\Columns\TextColumn::make('user.last_name')->searchable()->label('Last name'),
+                Tables\Columns\TextColumn::make('user.email')->searchable()->label('Email'),
             ])
             ->filters([
                 //

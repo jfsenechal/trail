@@ -11,6 +11,7 @@ use Filament\Widgets\TableWidget as BaseWidget;
 class ListRunners extends BaseWidget
 {
     protected int|string|array $columnSpan = 2;
+    protected static ?int $sort = 2;
 
     public function table(Table $table): Table
     {

@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\FrontPanel\Resources\RunnerResource\Widgets\ListRunners;
+use App\Filament\FrontPanel\Resources\RunnerResource\Widgets\Welcome;
 use App\Filament\Pages\Auth\EditProfile;
 use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\Auth\RequestPasswordReset;
@@ -16,7 +17,8 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -24,6 +26,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Contracts\View\View;
+use Filament\Actions;
 
 class FrontPanelProvider extends PanelProvider
 {
@@ -57,7 +61,7 @@ class FrontPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/FrontPanel/Widgets'), for: 'App\\Filament\\FrontPanel\\Widgets')
             ->widgets([
                 ListRunners::class,
-                Widgets\AccountWidget::class,
+                Welcome::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -74,11 +78,6 @@ class FrontPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->navigationItems([
-                NavigationItem::make('Site Marcheurs')
-                    ->url('https://marcheursdelafamenne.marche.be', shouldOpenInNewTab: true)
-                    ->icon('heroicon-o-presentation-chart-line')
-                    ->label(__('messages.navigation.website'))
-                    ->sort(3),
                 NavigationItem::make('dashboard admin')
                     ->icon('heroicon-o-cog-6-tooth')
                     ->label(fn(): string => __('messages.navigation.admin.dashboard'))
@@ -89,3 +88,8 @@ class FrontPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/front/theme.css');
     }
 }
+
+FilamentView::registerRenderHook(
+    PanelsRenderHook::AUTH_REGISTER_FORM_BEFORE,
+    fn(): View => view('filament.pages.register-banner'),
+);

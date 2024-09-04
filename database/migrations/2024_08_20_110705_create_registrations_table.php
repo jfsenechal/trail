@@ -19,13 +19,15 @@ return new class extends Migration {
             $table->foreignIdFor(Trail::class)->constrained('trails')->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
             $table->timestamp('registration_date')->useCurrent();
-            $table->unsignedInteger('price')->nullable();
             $table->timestamps();
         });
         Schema::create('registration_runner', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Registration::class)->constrained('registrations')->cascadeOnDelete();
             $table->foreignIdFor(Runner::class)->constrained('runners')->cascadeOnDelete();
+            $table->unsignedInteger('price')->nullable();
+            $table->boolean('paid')->nullable();
+            $table->timestamp('paid_date')->nullable();
             $table->timestamps();
             $table->unique(['registration_id', 'runner_id']);
         });

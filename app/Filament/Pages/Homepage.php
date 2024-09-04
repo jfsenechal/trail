@@ -16,7 +16,7 @@ class Homepage extends Page
 
     public function getSubheading(): ?string
     {
-        return __('Homepage');
+        return __('filament.pages.home.subHeading');
     }
 
     public static function canAccess(): bool
@@ -38,6 +38,7 @@ class Homepage extends Page
     {
         return [
             Action::make(__('Register'))
+                ->label(__('messages.filament.pages.home.register'))
                 ->url(route('filament.front.auth.register')),
         ];
     }

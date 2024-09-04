@@ -67,6 +67,6 @@ class NewRegistration
         /**
          * Send mail
          */
-        Mail::to($user->email)->send(new RegistrationCompleted($user, $token));
+        Mail::to($user->email)->send(new RegistrationCompleted($user, $token->plainTextToken));
     }
 }
